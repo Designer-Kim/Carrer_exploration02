@@ -1,0 +1,41 @@
+behaviors:
+  AncientGuardian:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024  # 배치 사이즈 증가 (병렬 학습 시 데이터 처리 향상)
+      buffer_size: 20480 # 더 많은 데이터 수집 (이전보다 4배 증가)
+      learning_rate: 0.0003
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: true
+      hidden_units: 256
+      num_layers: 3
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    keep_checkpoints: 5
+    checkpoint_interval: 100000
+    max_steps: 2000000  # 학습 시간을 더 늘림
+    time_horizon: 128
+    summary_freq: 20000
+
+env_settings:
+  env_path: "C:/Users/power/OneDrive/바탕 화면/진로탐색(1)/ML-Agents_Project/Env/Ancient_Practice/Ancient_Practice.exe"
+  base_port: 5005  # 여러 개 환경을 실행할 때 포트 충돌 방지
+  num_envs: 6  # 씬에 배치한 환경 수와 동일하게 설정
+  seed: -1
+
+engine_settings:
+  width: 1280
+  height: 720
+  quality_level: 5
+  time_scale: 5  # 초기에는 5로 설정 후 안정화되면 10으로 올리기
+  target_frame_rate: -1
+  capture_frame_rate: 60
+  no_graphics: true  # 그래픽을 끄면 더 빠르게 학습 가능

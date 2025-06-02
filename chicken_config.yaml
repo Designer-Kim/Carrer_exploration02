@@ -1,0 +1,22 @@
+behaviors:
+  ChickenAgent:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 512
+      buffer_size: 20480
+      learning_rate: 2.5e-4
+      beta: 5.0e-3
+      epsilon: 0.12
+      lambd: 0.95
+      num_epoch: 6
+    network_settings:
+      normalize: true
+      hidden_units: 256
+      num_layers: 3
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    max_steps: 1000000
+    time_horizon: 128
+    summary_freq: 50000
